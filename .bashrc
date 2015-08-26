@@ -3,6 +3,9 @@ export TERM=xterm-256color
 [[ -s /home/syq/.autojump/etc/profile.d/autojump.sh ]] && source /home/syq/.autojump/etc/profile.d/autojump.sh
 
 alias ..='cd ..'
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
 alias apt-get='sudo apt-get'
 alias py='python'
 
@@ -26,14 +29,18 @@ alias gr='git rebase'
 alias gri='git rebase --interactive'
 alias gcp='git cherry-pick'
 alias grm='git rm'
+alias calc='bc'
+alias woo='fortune'
+alias diskspace="du -S | sort -n -r | more"
 
 extract () {
    if [ -f $1 ] ; then
        case $1 in
            *.tar.bz2)   tar xvjf $1    ;;
+           *.tar.bz)    tar xvjf $1    ;;
            *.tar.gz)    tar xvzf $1    ;;
            *.bz2)       bunzip2 $1     ;;
-           *.rar)       unrar x $1       ;;
+           *.rar)       unrar x $1     ;;
            *.gz)        gunzip $1      ;;
            *.tar)       tar xvf $1     ;;
            *.tbz2)      tar xvjf $1    ;;
@@ -47,6 +54,12 @@ extract () {
        echo "'$1' is not a valid file!"
    fi
  }
+
+function compress()  # create .tar.gz archive
+{
+    tar -cvzf $1 $2
+}
+# Use: compress archive.tar.gz dirname/
 
 function __setprompt {
   local BLUE="\[\033[0;34m\]"
