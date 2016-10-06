@@ -75,6 +75,7 @@ set autoread
 
 " Make ';' an alias for ':'
 nnoremap ; :
+nnoremap <F3> :set hlsearch!<CR>
 
 " Highlight trailing whitespace
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
@@ -99,6 +100,13 @@ nnoremap <leader>j <c-w>j
 nnoremap <leader>k <c-w>k
 nnoremap <leader>h <c-w>h
 nnoremap <leader>l <c-w>l
+
+" Because of crappy ssh colors
+set t_Co=8
+
+" Resize splits
+nnoremap <silent> + :vertical res +3<CR>
+nnoremap <silent> - :vertical res -3<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
