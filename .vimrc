@@ -4,6 +4,12 @@ call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 syntax on
 filetype plugin indent on
 
+"
+set encoding=utf8
+set fillchars=vert:│
+" autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
+
+
 " Plugins
 nnoremap <C-p> :Unite file_rec/async<cr>
 nnoremap <space>/ :Unite grep:.<cr>
