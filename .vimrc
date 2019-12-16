@@ -1,17 +1,13 @@
+set mouse=a
+
  " Pathogen
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
 syntax on
 filetype plugin indent on
 
-"
-set encoding=utf8
-set fillchars=vert:│
-" autocmd ColorScheme * highlight VertSplit cterm=NONE ctermfg=Green ctermbg=NONE
-
-
 " Plugins
-nnoremap <C-p> :Unite file_rec/async<cr>
+" nnoremap <C-p> :Unite file_rec/async<cr>
 nnoremap <space>/ :Unite grep:.<cr>
 autocmd FileType c,cpp set commentstring=//\ %s
 
@@ -21,8 +17,11 @@ let maplocalleader = ","
 
 " Make vim pretty
 set background=dark
-colorscheme 256-grayvim
-colorscheme jellybeans 
+"color xcodedark
+color dracula
+"colorscheme 256-grayvim
+"colorscheme jellybeans
+set fillchars-=vert:\| | set fillchars+=vert:\ 
 
 " Tab to spaces
 set shiftwidth=2
@@ -77,7 +76,7 @@ nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 
 " Automatically reread files that have been changed externally"
-set autoread 
+set autoread
 
 " Make ';' an alias for ':'
 nnoremap ; :
@@ -127,3 +126,63 @@ function! RenameFile()
     endif
 endfunction
 map <leader>n :call RenameFile()<cr>
+
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['flake8']
+
+" airline stuff
+" let g:airline#extensions#tabline#left_sep = ' '
+" let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#enabled = 1
+" unicode symbols
+let g:airline_symbols = {}
+let g:airline_left_sep = '»'
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '«'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␊'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.paste = 'Þ'
+let g:airline_symbols.paste = '∥'
+let g:airline_symbols.whitespace = 'Ξ'
+set laststatus=2
+
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
+nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+
+let g:UltiSnipsExpandTrigger="<c-j>"
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" Fzf
+nnoremap <C-p>				  :Files<CR>
+" nnoremap <leader>fi       :Files<CR>
+" nnoremap <leader>C        :Colors<CR>
+" nnoremap <leader><CR>     :Buffers<CR>
+" nnoremap <leader>fl       :Lines<CR>
+" nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
+" nnoremap <leader>m        :History<CR>
+let g:UltiSnipsExpandTrigger="<C-b>"
+let g:UltiSnipsJumpForwardTrigger="<C-l>"
+let g:UltiSnipsJumpBackwardTrigger="<C-z>"
+
+" bind K to grep word under cursor
+"nnoremap L :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap <silent> L :Ag <C-R><C-W><CR>
+nnoremap \ :Ag<SPACE>
