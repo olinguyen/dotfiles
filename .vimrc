@@ -1,5 +1,8 @@
 set mouse=a
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" PLUGINS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
  " Pathogen
 execute pathogen#infect()
 call pathogen#helptags() " generate helptags for everything in 'runtimepath'
@@ -11,16 +14,20 @@ filetype plugin indent on
 nnoremap <space>/ :Unite grep:.<cr>
 autocmd FileType c,cpp set commentstring=//\ %s
 
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'sainnhe/sonokai'
+Plug 'preservim/tagbar'
+Plug 'vim-airline/vim-airline'
+" Initialize plugin system
+call plug#end()
+" plugins end =================
+
 " Make , the personal leader key
 let mapleader = ","
 let maplocalleader = ","
 
-" Make vim pretty
-set background=dark
-"color xcodedark
-"color dracula
-"colorscheme 256-grayvim
-"colorscheme jellybeans
 set fillchars-=vert:\| | set fillchars+=vert:\ 
 
 " Tab to spaces
@@ -106,12 +113,10 @@ nnoremap <leader>k <c-w>k
 nnoremap <leader>h <c-w>h
 nnoremap <leader>l <c-w>l
 
-" Because of crappy ssh colors
-set t_Co=8
 
 " Resize splits
 nnoremap <silent> + :vertical res +3<CR>
-nnoremap <silent> - :vertical res -3<CR>
+nnoremap <silent> _ :vertical res -3<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -127,12 +132,6 @@ function! RenameFile()
 endfunction
 map <leader>n :call RenameFile()<cr>
 
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_python_checkers = ['flake8']
 
 " airline stuff
 " let g:airline#extensions#tabline#left_sep = ' '
@@ -154,21 +153,10 @@ let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
 set laststatus=2
 
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
-let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
-
-let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
-nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
-
-let g:UltiSnipsExpandTrigger="<c-j>"
-
-call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 
 " Fzf
 nnoremap <C-p>				  :Files<CR>
@@ -178,14 +166,25 @@ nnoremap <C-p>				  :Files<CR>
 " nnoremap <leader>fl       :Lines<CR>
 " nnoremap <leader>ag       :Ag! <C-R><C-W><CR>
 " nnoremap <leader>m        :History<CR>
-let g:UltiSnipsExpandTrigger="<C-b>"
-let g:UltiSnipsJumpForwardTrigger="<C-l>"
-let g:UltiSnipsJumpBackwardTrigger="<C-z>"
 
 " bind K to grep word under cursor
 "nnoremap L :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <silent> L :Ag <C-R><C-W><CR>
 nnoremap \ :Ag<SPACE>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" COLOURS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Make vim pretty
+set background=dark
+" color dracula
+"colorscheme 256-grayvim
+"colorscheme jellybeans
+
+" Because of crappy ssh colors
+" set t_Co=8
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -203,3 +202,7 @@ if (empty($TMUX))
   endif
 endif
 
+color onedark
+let g:sonokai_enable_italic = 0
+let g:sonokai_disable_italic_comment = 1
+color sonokai
