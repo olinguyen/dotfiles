@@ -1,37 +1,7 @@
 export TERM=xterm-256color
 
-[[ -s /home/syq/.autojump/etc/profile.d/autojump.sh ]] && source /home/syq/.autojump/etc/profile.d/autojump.sh
-
-alias ..='cd ..'
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias apt-get='sudo apt-get'
-alias py='python'
-
-# some more ls aliases
-alias ll='ls -alFh'
-alias la='ls -A'
-alias l='ls -CF'
-
-# Git related
-alias gs='git status'
-alias gc='git commit'
-alias ga='git add'
-alias gd='git diff'
-alias gb='git branch'
-alias gl='git log'
-alias gsb='git show-branch'
-alias gco='git checkout'
-alias gg='git grep'
-alias gk='gitk --all'
-alias gr='git rebase'
-alias gri='git rebase --interactive'
-alias gcp='git cherry-pick'
-alias grm='git rm'
-alias calc='bc'
-alias woo='fortune'
-alias diskspace="du -S | sort -n -r | more"
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
 
 extract () {
    if [ -f $1 ] ; then
