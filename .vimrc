@@ -1,34 +1,40 @@
 set mouse=a
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" PLUGINS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
- " Pathogen
-execute pathogen#infect()
-call pathogen#helptags() " generate helptags for everything in 'runtimepath'
-syntax on
-filetype plugin indent on
-
-" Plugins
-" nnoremap <C-p> :Unite file_rec/async<cr>
-nnoremap <space>/ :Unite grep:.<cr>
-autocmd FileType c,cpp set commentstring=//\ %s
-
+" PLUGINS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.vim/plugged')
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'sainnhe/sonokai'
-Plug 'preservim/tagbar'
-Plug 'vim-airline/vim-airline'
-" Initialize plugin system
+  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+  Plug 'junegunn/fzf.vim'
+  Plug 'sainnhe/sonokai'
+  Plug 'preservim/tagbar'
+  Plug 'vim-airline/vim-airline'
+  Plug 'vim-airline/vim-airline-themes'
+  Plug 'preservim/nerdtree'
 call plug#end()
 " plugins end =================
+
+if has('termguicolors')
+  set termguicolors
+endif
+
+let g:sonokai_style = 'espresso'
+" let g:sonokai_style = 'atlantis'
+" let g:sonokai_style = 'andromeda'
+let g:sonokai_better_performance = 1
+let g:sonokai_disable_italic_comment = 1
+let g:sonokai_transparent_background = 1
+ "let g:sonokai_spell_foreground = 'colored'
+" let g:sonokai_disable_terminal_colors = 1
+
+colorscheme sonokai
+set t_Co=256
 
 " Make , the personal leader key
 let mapleader = ","
 let maplocalleader = ","
 
-set fillchars-=vert:\| | set fillchars+=vert:\ 
+" set fillchars-=vert:\| | set fillchars+=vert:\
+set fillchars=stl:^,stlnc:=,vert:\ ,fold:-,diff:-
+
 
 " Tab to spaces
 set shiftwidth=2
@@ -40,16 +46,12 @@ set expandtab
 
 map <F5> :make
 
-" Save with ctrl +s (might have to modify bash)
-:nmap <c-s> :w<CR>
-:imap <c-s> <Esc>:w<CR>a
-:imap <c-s> <Esc><c-s>
-
 :set autoindent
 :set cindent
 
 " Show line number
-:set nu
+set nu
+set relativenumber
 
 " Replace selected in visual mode
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
@@ -93,6 +95,8 @@ nnoremap <F3> :set hlsearch!<CR>
 highlight WhitespaceEOL ctermbg=DarkYellow guibg=DarkYellow
 match WhitespaceEOL /\s\+$/
 
+map <leader>T :NERDTree<cr>
+
 " ,W strips all trailing whitespace from current file
 nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
@@ -116,7 +120,7 @@ nnoremap <leader>l <c-w>l
 
 " Resize splits
 nnoremap <silent> + :vertical res +3<CR>
-nnoremap <silent> _ :vertical res -3<CR>
+nnoremap <silent> - :vertical res -3<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " RENAME CURRENT FILE
@@ -134,11 +138,19 @@ map <leader>n :call RenameFile()<cr>
 
 
 " airline stuff
-" let g:airline#extensions#tabline#left_sep = ' '
-" let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline_theme = 'sonokai'
+
+let g:airline_powerline_fonts = 1
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
 " unicode symbols
-let g:airline_symbols = {}
 let g:airline_left_sep = '»'
 let g:airline_left_sep = '▶'
 let g:airline_right_sep = '«'
@@ -151,12 +163,19 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
-set laststatus=2
 
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" airline symbols
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
 
+" set laststatus=2
+" set statusline+=%#warningmsg#
+" set statusline+=%*
 
 " Fzf
 nnoremap <C-p>				  :Files<CR>
@@ -171,38 +190,3 @@ nnoremap <C-p>				  :Files<CR>
 "nnoremap L :grep! "\b<C-R><C-W>\b"<CR>:cw<CR>
 nnoremap <silent> L :Ag <C-R><C-W><CR>
 nnoremap \ :Ag<SPACE>
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" COLOURS
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Make vim pretty
-set background=dark
-" color dracula
-"colorscheme 256-grayvim
-"colorscheme jellybeans
-
-" Because of crappy ssh colors
-" set t_Co=8
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
-
-color onedark
-let g:sonokai_enable_italic = 0
-let g:sonokai_disable_italic_comment = 1
-color sonokai
