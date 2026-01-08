@@ -21,9 +21,6 @@ set -gx BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
 fish_add_path -gaP "$BUN_INSTALL/bin"
 
 if status is-interactive
-    # worktrunk shell integration
-    command wt config shell init fish | source
-
     source ~/.bash_aliases
 
     # Directory jumping
@@ -57,8 +54,18 @@ if status is-interactive
     '
 
     # Shell history with atuin
-    atuin init fish | source
+    atuin init fish --disable-up-arrow | source
 
     # Runtime management
     mise activate fish | source
+
+    # Source private/work config if present
+    for f in ~/.config/fish.private/conf.d/*.fish
+        source $f
+    end
+
+    # Add private functions to function path
+    if test -d ~/.config/fish.private/functions
+        set -p fish_function_path ~/.config/fish.private/functions
+    end
 end
