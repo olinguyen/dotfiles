@@ -41,11 +41,15 @@ chsh -s $(which fish)
 tmux
 ```
 
+**Note:** The installer doesn't include `delta` or `atuin`. Install manually if needed:
+- delta: https://github.com/dandavison/delta
+- atuin: https://github.com/atuinsh/atuin
+
 ### macOS (Manual)
 
 ```bash
 # Install dependencies with Homebrew
-brew install fish neovim tmux starship zoxide fzf eza bat ripgrep fd sd mise
+brew install fish neovim tmux starship zoxide fzf eza bat ripgrep fd sd mise git-delta atuin
 
 # Copy configs (same as above)
 # ...
@@ -94,7 +98,7 @@ See [fish/README.md](fish/README.md) for full documentation.
 See [nvim/README.md](nvim/README.md) for keymaps and plugins.
 
 ### Tmux
-- Prefix: `Ctrl-Space`
+- Prefix: `Ctrl-f`
 - Catppuccin theme
 - Plugins: session persistence, clipboard, fzf, URL opening
 
