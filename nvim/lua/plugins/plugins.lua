@@ -1,11 +1,40 @@
 return {
-  -- {
-  --   "MeanderingProgrammer/render-markdown.nvim",
-  --   dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
-  --   ---@module 'render-markdown'
-  --   ---@type render.md.UserConfig
-  --   opts = {},
-  -- },
+  {
+    "serhez/teide.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      vim.cmd.colorscheme("teide-darker")
+      -- vim.cmd.colorscheme("teide-light")
+    end,
+  },
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
+    ft = "markdown",
+    opts = {
+      heading = {
+        icons = { "▌ ", "▌ ", "▌ ", "▌ ", "▌ ", "▌ " },
+        sign = false,
+        width = "block",
+        border = true,
+        border_virtual = true,
+      },
+      code = {
+        width = "block",
+        border = "thick",
+      },
+      bullet = {
+        icons = { "●", "○", "◆", "◇" },
+      },
+    },
+  },
+  {
+    "lukas-reineke/headlines.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    ft = { "markdown", "org", "norg" },
+    opts = {},
+  },
   {
     "epwalsh/obsidian.nvim",
     version = "*",
