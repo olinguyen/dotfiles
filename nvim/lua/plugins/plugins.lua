@@ -1,11 +1,10 @@
 return {
   {
-    "serhez/teide.nvim",
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme("teide-darker")
-      -- vim.cmd.colorscheme("teide-light")
+      vim.cmd.colorscheme("tokyonight-night")
     end,
   },
   {
