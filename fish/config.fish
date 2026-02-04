@@ -10,6 +10,9 @@ set -g fish_greeting
 
 # --- PATH additions -----------------------------------------------------------
 fish_add_path $HOME/.atuin/bin
+fish_add_path $HOME/.fzf/bin
+fish_add_path ~/.opencode/bin
+
 fish_add_path -gaP ~/.toolbox/bin ~/bin ~/.local/bin ~/.claude/local
 
 # pnpm
@@ -71,6 +74,3 @@ if status is-interactive
         set -p fish_function_path ~/.config/fish.private/functions
     end
 end
-
-# opencode
-fish_add_path ~/.opencode/bin
