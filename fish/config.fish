@@ -24,14 +24,16 @@ if status is-interactive
     source ~/.bash_aliases
 
     # Directory jumping
-    zoxide init fish | source
+    command -q zoxide && zoxide init fish | source
 
     # AWS config
     set -gx AWS_SDK_LOAD_CONFIG 1
     set -gx AWS_REGION us-west-2
     set -gx AWS_DEFAULT_REGION us-west-2
+    set -gx ZED_AWS_REGION us-west-2
+    set -gx ZED_AWS_PROFILE twitch-health-llms-prod
 
-    set -gx BAT_THEME Nord
+    # set -gx BAT_THEME Nord
 
     # Claude Code
     set -gx DISABLE_TELEMETRY 1
@@ -41,7 +43,7 @@ if status is-interactive
     set -gx CLAUDE_BASH_MAINTAIN_PROJECT_WORKING_DIR 1
 
     # Init starship
-    starship init fish | source
+    command -q starship && starship init fish | source
 
     # Tokyo Night (Ghostty tuned)
     set -gx FZF_DEFAULT_OPTS '
@@ -54,10 +56,10 @@ if status is-interactive
     '
 
     # Shell history with atuin
-    atuin init fish --disable-up-arrow | source
+    command -q atuin && atuin init fish --disable-up-arrow | source
 
     # Runtime management
-    mise activate fish | source
+    command -q mise && mise activate fish | source
 
     # Source private/work config if present
     for f in ~/.config/fish.private/conf.d/*.fish
@@ -69,3 +71,6 @@ if status is-interactive
         set -p fish_function_path ~/.config/fish.private/functions
     end
 end
+
+# opencode
+fish_add_path ~/.opencode/bin

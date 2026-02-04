@@ -48,4 +48,6 @@ abbr --add crp 'cargo run -p'
 # Config reloading
 abbr --add reload 'source ~/.config/fish/config.fish'
 abbr --add treload 'tmux source ~/.tmux.conf'
+abbr --add lg lazygit
+abbr --add v vim
 

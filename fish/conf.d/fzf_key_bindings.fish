@@ -222,6 +222,14 @@ function fzf_key_bindings
         commandline -f repaint
     end
 
+    function fzf-workspace-root-widget -d "Change to workspace directory"
+        set -l result (command ls ~/workspace/ | fzf --reverse --height 40%)
+        if test -n "$result"
+            cd ~/workspace/$result
+        end
+        commandline -f repaint
+    end
+
     bind \cr fzf-history-widget
     bind -M insert \cr fzf-history-widget
 
@@ -237,6 +245,9 @@ function fzf_key_bindings
 
     bind \eg fzf-workspace-widget
     bind -M insert \eg fzf-workspace-widget
+
+    bind \ew fzf-workspace-root-widget
+    bind -M insert \ew fzf-workspace-root-widget
 
 end
 ### end: key-bindings.fish ###
