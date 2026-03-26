@@ -1,3 +1,9 @@
+# --- Terminal fallback --------------------------------------------------------
+# Fallback to xterm-256color if the current TERM isn't in terminfo (needed on Linux)
+if not infocmp $TERM &>/dev/null
+    set -gx TERM xterm-256color
+end
+
 # --- Disable vendor auto-activation (we use shims instead) --------------------
 set -gx MISE_FISH_AUTO_ACTIVATE 0
 
@@ -14,20 +20,23 @@ set -g fish_greeting
 # --- PATH additions -----------------------------------------------------------
 fish_add_path $HOME/.atuin/bin
 fish_add_path $HOME/.fzf/bin
-fish_add_path ~/.opencode/bin
-
 fish_add_path -gaP ~/.toolbox/bin ~/bin ~/.local/bin ~/.claude/local
 
-# pnpm
-set -gx PNPM_HOME $HOME/Library/pnpm
-fish_add_path -gaP $PNPM_HOME
+# Linuxbrew (Linux only)
+if test -d /home/linuxbrew/.linuxbrew/bin
+    fish_add_path -gaP /home/linuxbrew/.linuxbrew/bin
+end
 
-# bun
-set -gx BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
-fish_add_path -gaP "$BUN_INSTALL/bin"
+# pnpm / bun (macOS paths)
+if test -d ~/Library
+    set -gx PNPM_HOME $HOME/Library/pnpm
+    fish_add_path -gaP $PNPM_HOME
+    set -gx BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
+    fish_add_path -gaP "$BUN_INSTALL/bin"
+end
 
 if status is-interactive
-    source ~/.bash_aliases
+    test -f ~/.bash_aliases && source ~/.bash_aliases
 
     # Directory jumping
     command -q zoxide && zoxide init fish | source
@@ -82,4 +91,4 @@ if status is-interactive
 end
 
 # opencode
-fish_add_path /Users/nguyolij/.opencode/bin
+fish_add_path $HOME/.opencode/bin
