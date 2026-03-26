@@ -1,3 +1,6 @@
+# --- Disable vendor auto-activation (we use shims instead) --------------------
+set -gx MISE_FISH_AUTO_ACTIVATE 0
+
 # --- Env & session basics -----------------------------------------------------
 # Use exported globals (-gx) so they apply to this session without permanently
 # writing fish "universal" variables (which can be hard to undo).
@@ -57,12 +60,15 @@ if status is-interactive
       --layout=reverse
       --height=80%
     '
+    set -gx FZF_DEFAULT_COMMAND 'fd --type f'
+    set -gx FZF_CTRL_T_COMMAND 'fd --type f'
+    set -gx FZF_ALT_C_COMMAND 'fd --type d'
 
     # Shell history with atuin
     command -q atuin && atuin init fish --disable-up-arrow | source
 
     # Runtime management
-    command -q mise && mise activate fish | source
+    command -q mise && fish_add_path ~/.local/share/mise/shims
 
     # Source private/work config if present
     for f in ~/.config/fish.private/conf.d/*.fish
@@ -74,3 +80,6 @@ if status is-interactive
         set -p fish_function_path ~/.config/fish.private/functions
     end
 end
+
+# opencode
+fish_add_path /Users/nguyolij/.opencode/bin
