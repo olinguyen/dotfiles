@@ -20,7 +20,7 @@ set -g fish_greeting
 # --- PATH additions -----------------------------------------------------------
 fish_add_path $HOME/.atuin/bin
 fish_add_path $HOME/.fzf/bin
-fish_add_path -gaP ~/.toolbox/bin ~/bin ~/.local/bin ~/.claude/local
+fish_add_path -gaP ~/.toolbox/bin ~/bin ~/.local/bin ~/.claude/local ~/.krew/bin
 
 # Linuxbrew (Linux only)
 if test -d /home/linuxbrew/.linuxbrew/bin

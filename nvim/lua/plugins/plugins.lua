@@ -12,6 +12,7 @@ return {
     dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-mini/mini.nvim" },
     ft = "markdown",
     opts = {
+      render_modes = { "n", "no", "v", "V", "c" }, -- all modes except insert (no = operator-pending for d/c/y/etc)
       heading = {
         icons = { "▌ ", "▌ ", "▌ ", "▌ ", "▌ ", "▌ " },
         sign = false,
@@ -30,9 +31,7 @@ return {
   },
   {
     "lukas-reineke/headlines.nvim",
-    dependencies = { "nvim-treesitter/nvim-treesitter" },
-    ft = { "markdown", "org", "norg" },
-    opts = {},
+    enabled = false, -- using render-markdown.nvim instead
   },
   {
     "szw/vim-maximizer",
