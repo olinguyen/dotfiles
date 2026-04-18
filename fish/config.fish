@@ -92,5 +92,11 @@ if status is-interactive
     end
 end
 
+# Suppress Electron helper app warnings from Obsidian CLI
+function obsidian
+    command obsidian $argv 2>/dev/null
+end
+
 # opencode
 fish_add_path $HOME/.opencode/bin
+
