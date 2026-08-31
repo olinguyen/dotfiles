@@ -71,17 +71,23 @@ function getCachedGitInfo(cwd) {
 // Truncate path to last N components, with ~ for home
 function formatPath(path, maxComponents = 3) {
   const home = process.env.HOME;
-  let display = path;
+  let homePrefix = '';
+  let rest = path;
 
   if (home && path.startsWith(home)) {
-    display = '~' + path.slice(home.length);
+    homePrefix = '~';
+    rest = path.slice(home.length);
   }
 
-  const parts = display.split('/').filter(Boolean);
-  if (parts.length > maxComponents) {
-    return parts.slice(-maxComponents).join('/');
-  }
-  return display;
+  // Count only real dir components; keep the ~ prefix separate so truncation
+  // never drops it.
+  const parts = rest.split('/').filter(Boolean);
+  const tail = parts.length > maxComponents
+    ? parts.slice(-maxComponents).join('/')
+    : parts.join('/');
+
+  if (homePrefix) return tail ? `${homePrefix}/${tail}` : homePrefix;
+  return path.startsWith('/') ? `/${tail}` : tail;
 }
 
 function buildProjectSection(currentDir, git) {
@@ -198,6 +204,12 @@ function buildStatus(input, rawInput) {
   // Section 3: Context
   const contextSection = buildContextSection(rawInput);
   if (contextSection) sections.push(contextSection);
+
+  // Section 4: extra content injected by the environment (e.g. a machine-local
+  // wrapper adding context% / Midway). Rendered inside the brackets as a section.
+  if (process.env.CLAUDE_STATUSLINE_EXTRA) {
+    sections.push(process.env.CLAUDE_STATUSLINE_EXTRA);
+  }
 
   // Join with separator
   return sections.join(` ${separator()} `);
