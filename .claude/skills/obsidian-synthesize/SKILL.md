@@ -10,7 +10,7 @@ Read broadly across the vault and generate a synthesis wiki page on a given topi
 
 ## Vault context
 
-! `cat /Users/nguyolij/Documents/Obsidian-Vault/.claude/CLAUDE.md`
+! `cat /Users/nguyolij/Documents/Obsidian-Vault/AGENTS.md`
 
 ## Available papers
 

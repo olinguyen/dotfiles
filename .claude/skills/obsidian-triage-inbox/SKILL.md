@@ -9,7 +9,7 @@ Audit and organize the `+Inbox/` folder in the Obsidian vault.
 
 ## Vault context
 
-! `cat /Users/nguyolij/Documents/Obsidian-Vault/.claude/CLAUDE.md`
+! `cat /Users/nguyolij/Documents/Obsidian-Vault/AGENTS.md`
 
 ## Current inbox
 

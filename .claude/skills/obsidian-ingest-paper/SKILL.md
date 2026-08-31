@@ -10,7 +10,7 @@ Process a research paper and integrate it into the Obsidian vault knowledge syst
 
 ## Vault context
 
-! `cat /Users/nguyolij/Documents/Obsidian-Vault/.claude/CLAUDE.md`
+! `cat /Users/nguyolij/Documents/Obsidian-Vault/AGENTS.md`
 
 ## Current papers
 
